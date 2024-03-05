@@ -63,13 +63,14 @@ public class TriTriOverlap : MonoBehaviour
 
 
     public Vector3 hitPoint = new Vector3();
+    float separationDistance = 0.05f;
 
     // Start is called before the first frame update
     void Start()
     {
-        triangle1.vertex0 = new Vector3(-13.0f, 2.0f, 0.0f);
-        triangle1.vertex1 = new Vector3(-0.0f, 3.0f, 10.0f);
-        triangle1.vertex2 = new Vector3(13.0f, 2.0f, 0.0f);
+        triangle1.vertex0 = new Vector3(-13.0f, 5.0f, 0.0f);
+        triangle1.vertex1 = new Vector3(-0.0f, 5.0f, 10.0f);
+        triangle1.vertex2 = new Vector3(13.0f, 5.0f, 0.0f);
 
         triangle1.deltaTime = 0.001f;
 
@@ -78,7 +79,7 @@ public class TriTriOverlap : MonoBehaviour
         triangle2.vertex2 = new Vector3(13.0f, 0.0f, 0.0f);
 
         triangle2.deltaTime = 0.001f;
-        triangle2.setZeroGravity();
+        triangle2.setInverseGravity();
 
         triangles.Add(triangle1);
         triangles.Add(triangle2);
@@ -95,36 +96,75 @@ public class TriTriOverlap : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        var t1 = triangle1;
+        var t2 = triangle2;
 
-        if (CheckEdgeCollision(triangle1.vertex0, triangle1.vertex1) || CheckEdgeCollision(triangle1.vertex0, triangle1.vertex2) || CheckEdgeCollision(triangle1.vertex1, triangle1.vertex2))
+        if (Detection(t1, t2))
         {
             // 충돌 지점과 삼각형의 각 정점 간의 평균을 이용하여 이동 벡터 계산
             Vector3 collisionPoint = hitPoint; // 충돌 지점
 
             // 충돌 지점과 가장 가까운 정점을 찾음
-            Vector3 closestVertex = FindClosestVertex(triangle1, collisionPoint);
+            {
+                Vector3 closestVertex = FindClosestVertex(t1, collisionPoint);
+                Vector3 averageVel = t1.getAverageVelocity();
 
-            Vector3 averageVel = triangle1.getAverageVelocity();
+                Vector3 separationVector = (closestVertex - collisionPoint).normalized * separationDistance;
+                if (Vector3.Distance(averageVel, Vector3.zero) > 0.00001)
+                {
+                    //// 이동 벡터를 사용하여 충돌이 발생한 정점을 충돌 지점으로 이동시킴
+                    if (closestVertex == t1.vertex0)
+                    {
+                        t1.vertex0 -= (t1.vel0 * t1.deltaTime) + separationVector;
+                        t1.vel0 *= -1.0f;
+                    }
+                    else if (closestVertex == t1.vertex1)
+                    {
+                        t1.vertex1 -= (t1.vel1 * t1.deltaTime) + separationVector;
+                        t1.vel1 *= -1.0f;
+                    }
+                    else if (closestVertex == t1.vertex2)
+                    {
+                        t1.vertex2 -= (t1.vel2 * t1.deltaTime) + separationVector;
+                        t1.vel2 *= -1.0f;
+                    }
+                }
+            }
+            {
+                Vector3 closestVertex = FindClosestVertex(t2, collisionPoint);
+                Vector3 averageVel = t2.getAverageVelocity();
 
-            //// 이동 벡터를 사용하여 충돌이 발생한 정점을 충돌 지점으로 이동시킴
-            if (closestVertex == triangle1.vertex0)
-            {
-                triangle1.vertex0 -= (triangle1.vel0 * triangle1.deltaTime * 2.0f);
-                triangle1.vel0 *= -1.0f;
-            }
-            else if (closestVertex == triangle1.vertex1)
-            {
-                triangle1.vertex1 -= (triangle1.vel1 * triangle1.deltaTime * 2.0f);
-                triangle1.vel1 *= -1.0f;
-            }
-            else if (closestVertex == triangle1.vertex2)
-            {
-                triangle1.vertex2 -= (triangle1.vel2 * triangle1.deltaTime * 2.0f);
-                triangle1.vel2 *= -1.0f;
+                if (Vector3.Distance(averageVel, Vector3.zero) > 0.00001)
+                {
+                    Vector3 separationVector = (closestVertex - collisionPoint).normalized * separationDistance;
+
+                    //// 이동 벡터를 사용하여 충돌이 발생한 정점을 충돌 지점으로 이동시킴
+                    if (closestVertex == t2.vertex0)
+                    {
+                        t2.vertex0 -= (t2.vel0 * t2.deltaTime * 2.0f) + separationVector;
+                        t2.vel0 *= -1.0f;
+                    }
+                    else if (closestVertex == t2.vertex1)
+                    {
+                        t2.vertex1 -= (t2.vel1 * t2.deltaTime * 2.0f) + separationVector;
+                        t2.vel1 *= -1.0f;
+                    }
+                    else if (closestVertex == t2.vertex2)
+                    {
+                        t2.vertex2 -= (t2.vel2 * t2.deltaTime * 2.0f) + separationVector;
+                        t2.vel2 *= -1.0f;
+                    }
+                }
+
             }
         }
-        
+
         UpdatePosition();
+    }
+
+    bool Detection(Triangle t1, Triangle t2)
+    {
+        return CheckEdgeCollision(t1.vertex0, t1.vertex1, t2) || CheckEdgeCollision(t1.vertex0, t1.vertex2, t2) || CheckEdgeCollision(t1.vertex1, t1.vertex2, t2);
     }
 
     bool IsPointInsideTriangle(Vector3 point, Triangle triangle)
@@ -182,14 +222,14 @@ public class TriTriOverlap : MonoBehaviour
         return IsPointInsideTriangle(p, triangle);
     }
 
-    bool CheckEdgeCollision(Vector3 vertex1, Vector3 vertex2)
+    bool CheckEdgeCollision(Vector3 vertex1, Vector3 vertex2, Triangle t)
     {
         var edge = new Line();
 
         edge.p0 = vertex1;
         edge.p1 = vertex2;
 
-        return Intersect(triangle2, edge, ref hitPoint);
+        return Intersect(t, edge, ref hitPoint);
     }
 
     public bool Intersect(Triangle triangle, Line ray, ref Vector3 hit)
@@ -212,7 +252,7 @@ public class TriTriOverlap : MonoBehaviour
             var coplanar = IsPointInsideTriangle(ray.p0, triangle);
             var coplanar2 = IsPointInsideTriangle(ray.p1, triangle);
 
-            if(coplanar) hit = ray.p0;
+            if (coplanar) hit = ray.p0;
             if (coplanar2) hit = ray.p1;
 
             return coplanar || coplanar2;
@@ -250,7 +290,7 @@ public class TriTriOverlap : MonoBehaviour
         return false;
     }
 
-    
+
 
     void OnDrawGizmos()
     {
