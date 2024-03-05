@@ -1,7 +1,13 @@
 # Triangle Triangle Intersection & Response Test Project in Unity 
 
 ## Videos
+### [red: moving, blue: stop]
+
 ![videos](./Appendix/video.gif)
+
+
+### [red: moving, blue: moving]
+
 ![videos](./Appendix/video2.gif)
 
 ## Features
