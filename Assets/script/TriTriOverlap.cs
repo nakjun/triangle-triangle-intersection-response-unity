@@ -67,14 +67,14 @@ public class TriTriOverlap : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        triangle1.vertex0 = new Vector3(-15.0f, 2.0f, 0.0f);
+        triangle1.vertex0 = new Vector3(-13.0f, 2.0f, 0.0f);
         triangle1.vertex1 = new Vector3(-0.0f, 3.0f, 10.0f);
-        triangle1.vertex2 = new Vector3(12.0f, 2.0f, 0.0f);
+        triangle1.vertex2 = new Vector3(13.0f, 2.0f, 0.0f);
 
         triangle1.deltaTime = 0.001f;
 
         triangle2.vertex0 = new Vector3(-13.0f, 0.0f, 0.0f);
-        triangle2.vertex1 = new Vector3(-0.0f, 0.0f, 5.0f);
+        triangle2.vertex1 = new Vector3(-0.0f, 0.0f, 10.0f);
         triangle2.vertex2 = new Vector3(13.0f, 0.0f, 0.0f);
 
         triangle2.deltaTime = 0.001f;
