@@ -2,6 +2,7 @@
 
 ## Videos
 ![videos](./Appendix/video.gif)
+![videos](./Appendix/video2.gif)
 
 ## Features
 - Edge-Triangle Intersection
