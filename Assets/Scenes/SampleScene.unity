@@ -189,25 +189,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afb0233c7dc58c943abdbb1d8fb92508, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  triangles: []
   triangle1:
-    vertex0: {x: 0, y: 0, z: 0}
-    vertex1: {x: 0, y: 0, z: 0}
-    vertex2: {x: 0, y: 0, z: 0}
+    vertex0: {x: -13, y: 5, z: 0}
+    vertex1: {x: 0, y: 5, z: 10}
+    vertex2: {x: 13, y: 5, z: 0}
     p_vertex0: {x: 0, y: 0, z: 0}
     p_vertex1: {x: 0, y: 0, z: 0}
     p_vertex2: {x: 0, y: 0, z: 0}
+    vel0: {x: 0, y: 0, z: 0}
+    vel1: {x: 0, y: 0, z: 0}
+    vel2: {x: 0, y: 0, z: 0}
+    gravity: {x: 0, y: -9.8, z: 0}
+    deltaTime: 0.0001
+    isCreated: 0
   triangle2:
-    vertex0: {x: 0, y: 0, z: 0}
-    vertex1: {x: 0, y: 0, z: 0}
-    vertex2: {x: 0, y: 0, z: 0}
+    vertex0: {x: -13, y: 0, z: 0}
+    vertex1: {x: 0, y: 0, z: 10}
+    vertex2: {x: 13, y: 0, z: 0}
     p_vertex0: {x: 0, y: 0, z: 0}
     p_vertex1: {x: 0, y: 0, z: 0}
     p_vertex2: {x: 0, y: 0, z: 0}
-  gravity: {x: 0, y: -9.8, z: 0}
-  velocity0: {x: 0, y: 0, z: 0}
-  velocity1: {x: 0, y: 0, z: 0}
-  velocity2: {x: 0, y: 0, z: 0}
-  deltaTime: 0.0001
+    vel0: {x: 0, y: 0, z: 0}
+    vel1: {x: 0, y: 0, z: 0}
+    vel2: {x: 0, y: 0, z: 0}
+    gravity: {x: 0, y: -9.8, z: 0}
+    deltaTime: 0.0001
+    isCreated: 0
   hitPoint: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:

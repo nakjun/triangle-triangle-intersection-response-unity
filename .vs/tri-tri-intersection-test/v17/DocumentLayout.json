@@ -7,12 +7,12 @@
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\script\\TriTriOverlap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\njsun\\tri-tri-intersection-test\\Assets\\script\\TriangleTriangleIntersection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\script\\TriangleTriangleIntersection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\njsun\\tri-tri-intersection-test\\Assets\\script\\TriangleIntersection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\script\\TriangleIntersection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\njsun\\tri-tri-intersection-test\\Assets\\script\\TriangleTriangleIntersection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\script\\TriangleTriangleIntersection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -32,34 +32,36 @@
               "RelativeDocumentMoniker": "Assets\\script\\TriTriOverlap.cs",
               "ToolTip": "C:\\Users\\njsun\\tri-tri-intersection-test\\Assets\\script\\TriTriOverlap.cs",
               "RelativeToolTip": "Assets\\script\\TriTriOverlap.cs",
-              "ViewState": "AQIAAMwAAAAAAAAAAAAhwN0AAAAeAAAA",
+              "ViewState": "AQIAAKEAAAAAAAAAAAAuwKYAAAAYAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-02-27T08:14:26.14Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "TriangleIntersection.cs",
               "DocumentMoniker": "C:\\Users\\njsun\\tri-tri-intersection-test\\Assets\\script\\TriangleIntersection.cs",
               "RelativeDocumentMoniker": "Assets\\script\\TriangleIntersection.cs",
               "ToolTip": "C:\\Users\\njsun\\tri-tri-intersection-test\\Assets\\script\\TriangleIntersection.cs",
               "RelativeToolTip": "Assets\\script\\TriangleIntersection.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAEAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABsAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-27T06:49:57.286Z"
+              "WhenOpened": "2024-02-27T06:49:57.286Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "TriangleTriangleIntersection.cs",
               "DocumentMoniker": "C:\\Users\\njsun\\tri-tri-intersection-test\\Assets\\script\\TriangleTriangleIntersection.cs",
               "RelativeDocumentMoniker": "Assets\\script\\TriangleTriangleIntersection.cs",
               "ToolTip": "C:\\Users\\njsun\\tri-tri-intersection-test\\Assets\\script\\TriangleTriangleIntersection.cs",
               "RelativeToolTip": "Assets\\script\\TriangleTriangleIntersection.cs",
-              "ViewState": "AQIAABsAAAAAAAAAAAAWwEkAAAAFAAAA",
+              "ViewState": "AQIAALoAAAAAAAAAAAAhwMQAAABfAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-27T06:42:36.606Z"
+              "WhenOpened": "2024-02-27T06:42:36.606Z",
+              "EditorCaption": ""
             }
           ]
         }

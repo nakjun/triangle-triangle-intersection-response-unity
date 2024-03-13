@@ -14,6 +14,15 @@ public class TriTriOverlap : MonoBehaviour
         public Vector3 gravity = new Vector3(0.0f, -9.8f, 0.0f);
         public float deltaTime = 0.01f;
 
+        public bool isCreated = false;
+
+        public void printVertexPos()
+        {
+            Debug.Log(this.vertex0);
+            Debug.Log(this.vertex1);
+            Debug.Log(this.vertex2);
+        }
+
         public void update()
         {
             this.vel0 += this.gravity * this.deltaTime;
@@ -65,8 +74,10 @@ public class TriTriOverlap : MonoBehaviour
     public Vector3 hitPoint = new Vector3();
     float separationDistance = 0.05f;
 
+    int frame = 0;
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         triangle1.vertex0 = new Vector3(-13.0f, 5.0f, 0.0f);
         triangle1.vertex1 = new Vector3(-0.0f, 5.0f, 10.0f);
@@ -83,6 +94,8 @@ public class TriTriOverlap : MonoBehaviour
 
         triangles.Add(triangle1);
         triangles.Add(triangle2);
+        triangle1.isCreated = true;
+        triangle2.isCreated = true;
     }
 
     void UpdatePosition()
@@ -96,11 +109,13 @@ public class TriTriOverlap : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var t1 = triangle1;
-        var t2 = triangle2;
+        
 
-        if (Detection(t1, t2))
+        var t1 = triangle1;
+        var t2 = triangle2;        
+        if ((triangle1.isCreated && triangle2.isCreated) && Detection(t1, t2) && frame > 3)
         {
+            Debug.Log("collision");
             // 충돌 지점과 삼각형의 각 정점 간의 평균을 이용하여 이동 벡터 계산
             Vector3 collisionPoint = hitPoint; // 충돌 지점
 
@@ -160,33 +175,51 @@ public class TriTriOverlap : MonoBehaviour
         }
 
         UpdatePosition();
+
+        frame++;
     }
 
     bool Detection(Triangle t1, Triangle t2)
     {
+        //t1.printVertexPos();
+        //t2.printVertexPos();
+        //Debug.Log(CheckEdgeCollision(t1.vertex0, t1.vertex1, t2));
+        //Debug.Log(CheckEdgeCollision(t1.vertex0, t1.vertex2, t2));
+        //Debug.Log(CheckEdgeCollision(t1.vertex1, t1.vertex2, t2));
         return CheckEdgeCollision(t1.vertex0, t1.vertex1, t2) || CheckEdgeCollision(t1.vertex0, t1.vertex2, t2) || CheckEdgeCollision(t1.vertex1, t1.vertex2, t2);
+    }
+
+    Vector3 ProjectPointOnPlane(Vector3 point, Vector3 planeNormal, Vector3 planePoint)
+    {
+        float d = Vector3.Dot(planeNormal, (point - planePoint)) / planeNormal.magnitude;
+        return point - d * planeNormal;
     }
 
     bool IsPointInsideTriangle(Vector3 point, Triangle triangle)
     {
-        Vector3 normal = Vector3.Cross(triangle.vertex1 - triangle.vertex0, triangle.vertex2 - triangle.vertex0); // 삼각형의 법선 벡터 계산
+        Vector3 normal = Vector3.Cross(triangle.vertex1 - triangle.vertex0, triangle.vertex2 - triangle.vertex0).normalized;
 
-        // [v0, v1] 변에 대한 검사
+        // 점을 삼각형 평면에 투영
+        Vector3 projectedPoint = ProjectPointOnPlane(point, normal, triangle.vertex0);
+
+        if (Vector3.Distance(projectedPoint, point) > 0.1) return false;
+
+        //Debug.Log(Vector3.Distance(projectedPoint, point));
+
+        // 투영된 점에 대한 내부 판단 로직
         Vector3 edge1 = triangle.vertex1 - triangle.vertex0;
-        Vector3 vp1 = point - triangle.vertex0;
+        Vector3 vp1 = projectedPoint - triangle.vertex0;
         if (Vector3.Dot(Vector3.Cross(edge1, vp1), normal) < 0) return false;
 
-        // [v1, v2] 변에 대한 검사
         Vector3 edge2 = triangle.vertex2 - triangle.vertex1;
-        Vector3 vp2 = point - triangle.vertex1;
+        Vector3 vp2 = projectedPoint - triangle.vertex1;
         if (Vector3.Dot(Vector3.Cross(edge2, vp2), normal) < 0) return false;
 
-        // [v2, v0] 변에 대한 검사
         Vector3 edge3 = triangle.vertex0 - triangle.vertex2;
-        Vector3 vp3 = point - triangle.vertex2;
+        Vector3 vp3 = projectedPoint - triangle.vertex2;
         if (Vector3.Dot(Vector3.Cross(edge3, vp3), normal) < 0) return false;
 
-        return true; // 모든 검사를 통과했다면, 점은 삼각형 내부에 있습니다.
+        return true; // 모든 검사를 통과했다면, 투영된 점은 삼각형 내부에 있습니다.
     }
 
     Vector3 FindClosestVertex(Triangle triangle, Vector3 point)
